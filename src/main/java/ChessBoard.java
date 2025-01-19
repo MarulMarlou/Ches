@@ -107,26 +107,21 @@ public class ChessBoard {
     }
 
     public boolean moveToPosition(int startLine, int startColumn, int endLine, int endColumn) {
-        // Выход за пределы
         if (!checkPos(startLine) || !checkPos(startColumn) || !checkPos(endLine) || !checkPos(endColumn)) {
             return false;
         }
-        // Пустая клетка в начале
         if (board[startLine][startColumn] == null) {
-            return false; // Нечего двигать
+            return false;
         }
 
-        // Проверяем, что это тот же игрок
         if (!nowPlayer.equals(board[startLine][startColumn].getColor())) {
-            return false; // Игрок не вправе двигать чужие фигуры
+            return false;
         }
 
-        // Проверка возможности движения
         if (board[startLine][startColumn].canMoveToPosition(this, startLine, startColumn, endLine, endColumn)) {
-            // Действие: передвинули в конечную позицию
             board[endLine][endColumn] = board[startLine][startColumn];
-            board[startLine][startColumn] = null; // Убираем фигуру из начальной позиции
-            nowPlayer = nowPlayer.equals("White") ? "Black" : "White"; // Меняем игроков
+            board[startLine][startColumn] = null;
+            nowPlayer = nowPlayer.equals("White") ? "Black" : "White";
             return true;
         }
         System.out.println("Attempting to move from (" + startLine + "," + startColumn + ") to (" + endLine + "," + endColumn + ")");
@@ -134,7 +129,7 @@ public class ChessBoard {
     }
 
 
-    public void printBoard() {  //print board in console
+    public void printBoard() {
         System.out.println("Turn " + nowPlayer);
         System.out.println();
         System.out.println("Player 2(Black)");
@@ -170,18 +165,17 @@ public class ChessBoard {
                 board[rookLine][rookColumn] instanceof Rook && board[rookLine][rookColumn].isCheck()) {
             for (int i = 1; i < 4; i++) {
                 if (board[kingLine][i] != null) {
-                    return false; // Если между корolem и ладьей есть фигуры, рокировка невозможна
+                    return false;
                 }
             }
 
-            // Совершаем рокировку
-            board[kingLine][2] = board[kingLine][4]; // Перемещаем короля
+            board[kingLine][2] = board[kingLine][4];
             board[kingLine][4] = null;
-            board[kingLine][3] = board[kingLine][0]; // Перемещаем ладью
+            board[kingLine][3] = board[kingLine][0];
             board[kingLine][0] = null;
 
-            board[kingLine][2].setCheck(false); // Отмечаем короля как перемещенный
-            board[kingLine][3].setCheck(false); // Отмечаем ладью как перемещенную
+            board[kingLine][2].setCheck(false);
+            board[kingLine][3].setCheck(false);
 
             this.nowPlayer = this.nowPlayerColor().equals("White") ? "Black" : "White";
 
@@ -200,18 +194,17 @@ public class ChessBoard {
                 board[rookLine][rookColumn] instanceof Rook && board[rookLine][rookColumn].isCheck()) {
             for (int i = 5; i < 7; i++) {
                 if (board[kingLine][i] != null) {
-                    return false; // Если между корolem и ладьей есть фигуры, рокировка невозможна
+                    return false;
                 }
             }
 
-            // Совершаем рокировку
-            board[kingLine][6] = board[kingLine][4]; // Перемещаем короля
+            board[kingLine][6] = board[kingLine][4];
             board[kingLine][4] = null;
-            board[kingLine][5] = board[kingLine][7]; // Перемещаем ладью
+            board[kingLine][5] = board[kingLine][7];
             board[kingLine][7] = null;
 
-            board[kingLine][6].setCheck(false); // Отмечаем короля как перемещенный
-            board[kingLine][5].setCheck(false); // Отмечаем ладью как перемещенную
+            board[kingLine][6].setCheck(false);
+            board[kingLine][5].setCheck(false);
 
             this.nowPlayer = this.nowPlayerColor().equals("White") ? "Black" : "White";
 

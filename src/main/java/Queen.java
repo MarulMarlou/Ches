@@ -10,20 +10,16 @@ public class Queen extends ChessPiece {
 
     @Override
     public boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
-        // Проверка выхода за доску
         if (!chessBoard.checkPos(toLine) || !chessBoard.checkPos(toColumn)) {
             return false;
         }
 
-        // Проверка того, что фигура не ходит в точку, в которой она сейчас находится
         if (line == toLine && column == toColumn) {
             return false;
         }
 
-        // Проверка хода по прямой или диагонали
         if (line == toLine || column == toColumn || Math.abs(toLine - line) == Math.abs(toColumn - column)) {
-            // Проверка того, что на пути нет других фигур
-            if (line == toLine) { // Ход по горизонтали
+            if (line == toLine) {
                 int minColumn = Math.min(column, toColumn);
                 int maxColumn = Math.max(column, toColumn);
                 for (int i = minColumn + 1; i < maxColumn; i++) {
@@ -31,7 +27,7 @@ public class Queen extends ChessPiece {
                         return false;
                     }
                 }
-            } else if (column == toColumn) { // Ход по вертикали
+            } else if (column == toColumn) {
                 int minLine = Math.min(line, toLine);
                 int maxLine = Math.max(line, toLine);
                 for (int i = minLine + 1; i < maxLine; i++) {
@@ -39,7 +35,7 @@ public class Queen extends ChessPiece {
                         return false;
                     }
                 }
-            } else { // Ход по диагонали
+            } else {
                 int lineDirection = (toLine > line) ? 1 : -1;
                 int columnDirection = (toColumn > column) ? 1 : -1;
 
@@ -55,7 +51,6 @@ public class Queen extends ChessPiece {
                 }
             }
 
-            // Проверка того, что на конечной позиции нет фигуры того же цвета
             if (chessBoard.board[toLine][toColumn] != null && chessBoard.board[toLine][toColumn].getColor().equals(getColor())) {
                 return false;
             }

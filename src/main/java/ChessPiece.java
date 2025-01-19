@@ -6,7 +6,6 @@ public abstract class ChessPiece {
         this.color = color;
     }
 
-    // Геттеры и сеттеры
     public String getColor() {
         return color;
     }
@@ -19,7 +18,6 @@ public abstract class ChessPiece {
         this.check = check;
     }
 
-    // Абстрактные методы
     public abstract boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn);
 
     public abstract String getSymbol();

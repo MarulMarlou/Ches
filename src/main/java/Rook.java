@@ -10,20 +10,16 @@ public class Rook extends ChessPiece {
 
     @Override
     public boolean canMoveToPosition(ChessBoard chessBoard, int line, int column, int toLine, int toColumn) {
-        // Проверка выхода за доску
         if (!chessBoard.checkPos(toLine) || !chessBoard.checkPos(toColumn)) {
             return false;
         }
 
-        // Проверка того, что фигура не ходит в точку, в которой она сейчас находится
         if (line == toLine && column == toColumn) {
             return false;
         }
 
-        // Проверка хода по прямой
         if (line == toLine || column == toColumn) {
-            // Проверка того, что на пути нет других фигур
-            if (line == toLine) { // Ход по горизонтали
+            if (line == toLine) {
                 int minColumn = Math.min(column, toColumn);
                 int maxColumn = Math.max(column, toColumn);
                 for (int i = minColumn + 1; i < maxColumn; i++) {
@@ -31,7 +27,7 @@ public class Rook extends ChessPiece {
                         return false;
                     }
                 }
-            } else { // Ход по вертикали
+            } else {
                 int minLine = Math.min(line, toLine);
                 int maxLine = Math.max(line, toLine);
                 for (int i = minLine + 1; i < maxLine; i++) {
@@ -41,7 +37,6 @@ public class Rook extends ChessPiece {
                 }
             }
 
-            // Проверка того, что на конечной позиции нет фигуры того же цвета
             if (chessBoard.board[toLine][toColumn] != null && chessBoard.board[toLine][toColumn].getColor().equals(getColor())) {
                 return false;
             }
